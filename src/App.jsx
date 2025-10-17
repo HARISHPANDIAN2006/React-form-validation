@@ -20,8 +20,8 @@ function App() {
   const [submitted, setSubmitted] = useState(false)
 
   const errors = {}
-  if (!form.name.trim()) errors.name = 'Name is required'
-  if (!form.email.trim()) errors.email = 'Email is required'
+  if (!form.name.trim()) errors.name = 'Name is Not Filled'
+  if (!form.email.trim()) errors.email = 'Email is not Filled'
   else if (!validateEmail(form.email)) errors.email = 'Email is invalid'
   if (!form.password) errors.password = 'Password is required'
   else if (form.password.length < 6) errors.password = 'Password must be at least 6 characters'
