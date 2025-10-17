@@ -40,3 +40,56 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Form styles */
+.form-card {
+  max-width: 480px;
+  margin: 1.5rem auto;
+  text-align: left;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+.form-card form {
+  padding: 1.25rem 1.5rem;
+}
+.field {
+  margin-bottom: 1rem;
+}
+.field label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-weight: 600;
+}
+.field input[type="text"],
+.field input[type="email"],
+.field input[type="password"],
+.field input[type="text"] {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid #ccd;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+.checkbox-field label {
+  font-weight: 400;
+}
+.error {
+  color: #b00020;
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+}
+.success {
+  padding: 1rem;
+  background: #e6ffed;
+  border: 1px solid #b6f0c1;
+  color: #066a2e;
+  border-radius: 6px;
+  text-align: center;
+}
+.actions {
+  text-align: right;
+}
+.submit[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
