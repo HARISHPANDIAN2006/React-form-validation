@@ -1,0 +1,71 @@
+cd frontend
+call npm ci || call npm install
+call npm run build
+mkdir "C:\ProgramData\Jenkins\.jenkins\userContent\react-app"
+xcopy  /E /I /Y "dist\*" "C:\ProgramData\Jenkins\.jenkins\userContent\react-app\"
+
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/HARISHPANDIAN2006/React-deploy'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                dir('frontend') {
+                    bat '"C:\\Program Files\\nodejs\\npm.cmd" install'
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                dir('frontend') {
+                    bat '"C:\\Program Files\\nodejs\\npm.cmd" run build'
+                }
+            }
+        }
+
+       stage('Serve') {
+    steps {
+        dir('frontend') {
+            bat 'start /B "" "C:\\Program Files\\nodejs\\npx.cmd" serve -s dist -l 8082'
+        }
+    }
+}
+
+
+    }
+
+    post {
+        failure {
+            echo 'Build failed!'
+        }
+    }
+}
+
+# Stage 1: Build the React app
+FROM node:20 AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Stage 2: Serve with Nginx
+FROM nginx:stable-alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+
+
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/HARISHPANDIAN2006/Demo.git
+git push -u origin main
